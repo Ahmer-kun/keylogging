@@ -1,4 +1,4 @@
-# KEYLOG
+<!--# KEYLOG
 # CODE 1
 
 
@@ -78,7 +78,6 @@ After the code we can use this step
 pyinstaller --onefile keylogger.py
 
 # Store it on a USB drive or deploy via network sharing.
-# Use task scheduling (Windows Task Scheduler, crontab) to run it at startup.
-
+# Use task scheduling (Windows Task Scheduler, crontab) to run it at startup.-->
 
 
